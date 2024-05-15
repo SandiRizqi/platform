@@ -2,14 +2,14 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
-import 'mapbox-gl/dist/mapbox-gl.css';
+import "mapbox-gl/dist/mapbox-gl.css";
 import "./globals.css";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { ThemeProvider } from "@mui/material";
 import GciAppBar from "@/components/GciAppBar";
+import { Suspense } from "react";
+import Loading from "./loading";
 import theme from "./theme";
-
-
 
 export const metadata = {
   title: "Geocircle Components",
@@ -26,7 +26,9 @@ export default function RootLayout({ children }) {
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <GciAppBar color="primary" />
-            <main>{children}</main>
+            <main>
+              <Suspense fallback={<Loading />}>{children}</Suspense>
+            </main>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

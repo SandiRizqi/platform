@@ -3,8 +3,11 @@ import React from "react";
 import { useState, useEffect } from "react";
 import GciButton from "@/components/GciButton";
 import GciTimeline from "@/components/GciTimeline";
+import GciAvatar from "@/components/GciAvatar";
 import { Container } from "@mui/material";
 import axios from "axios";
+
+
 
 export default function Home() {
   const [planet, setPlanet] = useState([])
@@ -32,7 +35,7 @@ export default function Home() {
 
 
   return (
-    <div>
+    <>
       <Container sx={{padding: '1rem'}}>
         <GciButton color={"secondary"} variant={"contained"} isLoading>
           Button
@@ -40,7 +43,10 @@ export default function Home() {
         <br />
         <br />
         <GciTimeline marks={planet}/>
+        <br />
+        <br />
+        <GciAvatar />
       </Container>
-    </div>
+    </>
   );
 }
