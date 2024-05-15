@@ -1,0 +1,15 @@
+.mapcontainer {
+    min-height: calc(100vh - 50px);
+    width: 100%;
+    position: absolute;
+    z-index: -1;
+}
+
+
+.timeline {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    bottom: 50px;
+}
