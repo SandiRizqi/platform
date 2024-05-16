@@ -1,15 +1,18 @@
 import React from 'react';
 import { Avatar, IconButton } from '@mui/material';
-import img from '@/assets/images/avatar.png'
+import Img from '@/assets/images/avatar.png';
 
-export default function GciAvatar({ url, size }) {
+export default function GciAvatar({ alt, url, size, onClick }) {
     return (
         <>
-            <IconButton size={size} disableFocusRipple>
+            <IconButton size={size} onClick={onClick} disableFocusRipple>
                 <Avatar
-                    alt='avatar'
-                    
-                    src={url ? url : img} />
+                    alt={alt}              
+                    src={url ? url : Img}
+                    sx={{
+                        width: 32,
+                        height: 32
+                    }} />
             </IconButton>
         </>
     )

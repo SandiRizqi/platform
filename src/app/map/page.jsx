@@ -59,8 +59,6 @@ export default function Maps({ configOptions }) {
 
 
 
-    console.log(selectedPlanet);
-
 
     return (
         <Fragment >
@@ -76,7 +74,7 @@ export default function Maps({ configOptions }) {
                     maxPitch={85}
                     style={{
                         width: '100%',
-                        height: windowSize.height - EXTERNAL_ELEMENTS_HEIGHT,
+                        height: windowSize.height,
                         zIndex: 1
                     }}
                     mapboxAccessToken={MAPBOX_TOKEN}

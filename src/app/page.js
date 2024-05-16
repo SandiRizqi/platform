@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import GciButton from "@/components/GciButton";
 import GciTimeline from "@/components/GciTimeline";
 import GciAvatar from "@/components/GciAvatar";
+import GciAccountMenu from "@/components/GciAccountMenu";
 import { Container } from "@mui/material";
 import axios from "axios";
 
@@ -46,6 +47,9 @@ export default function Home() {
         <br />
         <br />
         <GciAvatar />
+        <br />
+        <br />
+        <GciAccountMenu />
       </Container>
     </>
   );
