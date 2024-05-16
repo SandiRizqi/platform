@@ -1,7 +1,7 @@
 .mapcontainer {
     height: 100vh;
     width: 100%;
-    position: absolute;
+    position: relative;
     z-index: 999;
 }
 
@@ -12,4 +12,19 @@
     display: flex;
     justify-content: center;
     bottom: 50px;
+}
+
+.mapcanvas {
+    margin-left: auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.mapcanvasclose {
+    width: calc(100vw - 240px);
+    margin-left: auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }

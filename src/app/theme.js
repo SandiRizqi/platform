@@ -6,13 +6,13 @@ const theme = createTheme({
   palette: {
     mode: "light",
     primary: {
-      main: "rgb(238, 247, 255)",
+      main: "rgb(255,255,255)",
      
       
     },
     secondary: {
-        main: "rgb(77, 134, 156)",
-        light: "rgba(77, 134, 156, 0.3)",
+        main: "rgb(117, 164, 127)",
+        light: "rgba(117, 164, 127, 0.3)",
      
        
     }
@@ -21,8 +21,8 @@ const theme = createTheme({
     MuiToolbar: {
         styleOverrides: {
             dense: {
-                height: 50,
-                minHeight: 50
+                height: 45,
+                minHeight: 45
             }
         }
     }
