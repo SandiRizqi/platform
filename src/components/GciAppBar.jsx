@@ -20,14 +20,14 @@ export default function GciAppBar({color }) {
                         <Typography sx={{ flexGrow: 1, justifyContent: 'center', alignItems: 'center', display:'flex' }} component='div'>
                             {matches && (
                                 <>
-                                <Typography>MATCH</Typography>
+                                
                                 </>
                             )}
                         </Typography>
                         <div>
                            
                                 <IconButton size="large" edge="start" color="inherit" arial-label="notification" disableFocusRipple>
-                                    <NotificationsOutlinedIcon size='large' />
+                                    <NotificationsOutlinedIcon size='large' color='secondary' />
                                 </IconButton>
                            
                             <GciAccountMenu />

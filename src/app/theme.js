@@ -13,6 +13,7 @@ const theme = createTheme({
     secondary: {
         main: "rgb(117, 164, 127)",
         light: "rgba(117, 164, 127, 0.4)",
+        contrastText: "#FFFF"
      
        
     }

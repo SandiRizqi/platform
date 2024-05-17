@@ -1,78 +1,46 @@
-import React from "react";
-import {
-  IconButton,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Divider,
-} from "@mui/material";
-import { ChevronLeftIcon, ChevronRightIcon, InboxIcon, MailIcon } from "@mui/icons-material";
-import { styled, useTheme } from '@mui/material/styles';
-import MuiDrawer from '@mui/material/Drawer';
-import { height } from "@mui/system";
+'use client'
+import React from 'react';
+import { Fragment } from 'react';
+import styles from '../style.module.css';
+import { Box, AppBar } from '@mui/material';
+import TabSidebar from './TabSidebar';
+import { Fab, IconButton } from '@mui/material';
+import { ChevronRightOutlined, ChevronLeftOutlined } from '@mui/icons-material';
+
+export default function MapSidebar() {
+    const [toggle, setToggle] = React.useState(true);
+
+    function ToogleButton() {
+        return (
+            <Fab size="medium" edge="start" color="inherit" arial-label="tooglepanel" disableFocusRipple sx={{ boxShadow: 5 }} onClick={() => setToggle(!toggle)}>
+                <ChevronRightOutlined size='medium' />
+            </Fab>
+        )
+    };
 
 
+    function CloseButton() {
+        return (
+            <IconButton disableRipple size='medium' onClick={() => setToggle(!toggle)}>
+                <ChevronLeftOutlined color='primary' size='medium' />
+            </IconButton>
+        )
+    };
 
-const drawerWidth = 240;
-
-const openedMixin = (theme) => ({
-  width: drawerWidth,
-  transition: theme.transitions.create("width", {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.enteringScreen,
-  }),
-  overflowX: "hidden",
-});
-
-const closedMixin = (theme) => ({
-  transition: theme.transitions.create("width", {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  overflowX: "hidden",
-  width: `calc(${theme.spacing(7)} + 1px)`,
-  [theme.breakpoints.up("sm")]: {
-    width: `calc(${theme.spacing(8)} + 1px)`,
-  },
-});
+    function TabButton() {
+        return (
+            <AppBar position='static' color='secondary' sx={{ flexGrow: 1, borderRadius: '5px 5px 0 0', boxShadow: 3 }}>
+                <TabSidebar CloseButton={<CloseButton />} />
+            </AppBar>
+        )
+    }
 
 
-
-
-const Drawer = styled(MuiDrawer, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-  width: drawerWidth,
-  flexShrink: 0,
-  whiteSpace: "nowrap",
-  boxSizing: "border-box",
-  ...(open && {
-    ...openedMixin(theme),
-    "& .MuiDrawer-paper": openedMixin(theme),
-  }),
-  ...(!open && {
-    ...closedMixin(theme),
-    "& .MuiDrawer-paper": closedMixin(theme),
-  }),
-}));
-
-export default function MapSidebar({ open }) {
-  const theme = useTheme();
-
-
-  return (
-    <>
-      <Drawer variant="permanent" open={open}>
-        <List>
-
-        </List>
-        <Divider />
-
-
-
-      </Drawer>
-    </>
-  );
+    return (
+        <Fragment>
+                <Box className={styles.SidebarContainer} sx={{ flexGrow: 1, bgcolor: 'inherit', borderRadius: '5px' }}>
+                    {toggle ? (<TabButton />) : <ToogleButton />}
+                </Box>
+        </Fragment>
+    )
 }

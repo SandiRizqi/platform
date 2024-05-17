@@ -4,8 +4,8 @@ import { useRef, useEffect, useState } from 'react';
 import { Fragment } from 'react';
 import { Map, Source, Layer } from 'react-map-gl';
 import { useTheme, useMediaQuery } from '@mui/material';
-import MapSidebar from './components/MapSidebar';
 import GciTimeline from '@/components/GciTimeline';
+import MapSidebar from './components/MapSidebar';
 import axios from 'axios';
 import styles from './style.module.css';
 import MAPBOXCONFIG from '@/config/mapboxConfig';
@@ -20,10 +20,9 @@ const CONFIG_DEFAULT = MAPBOXCONFIG['defaultConfig'];
 export default function Maps({ configOptions }) {
     const CONFIG = { ...CONFIG_DEFAULT, ...configOptions };
     const theme = useTheme();
-    const matches = useMediaQuery(theme.breakpoints.up('sm'));
+    const matches = useMediaQuery(theme.breakpoints.up('md'));
     const mapRef = useRef();
     const [planet, setPlanet] = useState([]);
-    const [toggle, setToggle] = useState(true);
     const [selectedPlanet, setSelectedPlanet] = useState(null);
 
 
@@ -59,8 +58,7 @@ export default function Maps({ configOptions }) {
     return (
         <Fragment >
             <div className={styles.mapcontainer}>
-                <MapSidebar open={toggle}/>
-                <div className={toggle ? styles.mapcanvasclose : styles.mapcanvasclose}>
+                <div className={styles.mapcanvas}>
                     <Map
                         ref={mapRef}
                         initialViewState={{
@@ -87,6 +85,7 @@ export default function Maps({ configOptions }) {
                         }}
 
                     >
+                        {matches && (<MapSidebar />)}
 
 
 
