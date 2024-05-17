@@ -6,16 +6,17 @@ import AlertTab from './tabs/AlertTab';
 
 
 const TABS = [
-    <BasemapTab/>,
-    <LayersTab />,
-    <AlertTab />
+    <BasemapTab key={0}/>,
+    <LayersTab key={1}/>,
+    <AlertTab key={2}/>
 ]
 
 
 function a11yProps(index) {
     return {
-        'id': `full-width-tab-${index}`,
+        id: `full-width-tab-${index}`,
         'aria-controls': `full-width-tabpanel-${index}`,
+        key:{index}
     };
 }
 
