@@ -26,7 +26,7 @@ export default function GciAppBar({color }) {
                         </Typography>
                         <div>
                            
-                                <IconButton size="large" edge="start" color="inherit" arial-label="notification" disableFocusRipple>
+                                <IconButton size="large" edge="start" color="inherit" arial-label="notification" disableRipple >
                                     <NotificationsOutlinedIcon size='large' color='secondary' />
                                 </IconButton>
                            

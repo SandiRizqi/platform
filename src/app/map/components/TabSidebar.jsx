@@ -1,5 +1,15 @@
 import React from 'react'
 import { Tab, Tabs, Box, Typography } from '@mui/material';
+import BasemapTab from './tabs/BasemapTab';
+import LayersTab from './tabs/LayersTab';
+import AlertTab from './tabs/AlertTab';
+
+
+const TABS = [
+    <BasemapTab/>,
+    <LayersTab />,
+    <AlertTab />
+]
 
 
 function a11yProps(index) {
@@ -24,7 +34,7 @@ export default function TabSidebar({ CloseButton }) {
 
     return (
         <React.Fragment>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider', maxWidth: '350px' }}>
                 <Tabs
                     value={value}
                     onChange={handleChange}
@@ -39,9 +49,8 @@ export default function TabSidebar({ CloseButton }) {
                     {CloseButton}
                 </Tabs>
             </Box>
-            <Box sx={{minHeight: '40vh', borderRadius: '0 0 5px 5px', color: 'grey', padding: '5px', bgcolor: 'primary.main'}}>
-                    {value}
-               
+            <Box sx={{minHeight: '10vh', borderRadius: '0 0 5px 5px', color: 'grey', padding: '5px', bgcolor: 'primary.main', maxWidth: '350px'}}>
+                {TABS[value]}
             </Box>
         </React.Fragment>
     )
