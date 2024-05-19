@@ -4,19 +4,23 @@ import { Accordion, AccordionSummary, AccordionDetails, Typography } from '@mui/
 
 export default function BasemapTab() {
   const [active, setActive] = React.useState('')
+
+  function handleClick (title) {
+    if (title === active) {
+      return setActive('');
+    }
+    setActive(title);
+  }
   return (
     <React.Fragment>
       {BASEMAPS.map((obj, idx) => (
-        <Accordion key={idx} expanded={obj.title === active} onChange={() => setActive(obj.title)}>
+        <Accordion key={idx} expanded={obj.title === active} onChange={() => handleClick(obj.title)}>
           <AccordionSummary>
-            {obj.title}
+            <p style={{fontSize: '14px'}}><strong>{obj.title}</strong></p>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-              malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
-              sit amet, consectetur adipiscing elit. Sudfdfspendisse malesuada lacus ex,
-              sit amet blandit leo lobortis eget.
+              {obj?.desc}
             </Typography>
           </AccordionDetails>
         </Accordion>
