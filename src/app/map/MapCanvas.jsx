@@ -11,6 +11,7 @@ import axios from 'axios';
 import styles from './style.module.css';
 
 
+
 const initMap = {
     long: 117,
     lat: 0,
@@ -31,10 +32,10 @@ function Timeline({planet, setPlanetLayer, matches}) {
 
 
 export default function MapCanvas({ controlpanel, layers }) {
-    const basemap = useSelector((state) => state.control.selectedBasemap)
-    const basemapUrl = useSelector((state) => state.control.basemapUrl);
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.up('md'));
+    const basemap = useSelector((state) => state.control.selectedBasemap)
+    const basemapUrl = useSelector((state) => state.control.basemapUrl);
     const dispatch = useDispatch();
     const [planet, setPlanet] = useState([]);
 
@@ -68,32 +69,34 @@ export default function MapCanvas({ controlpanel, layers }) {
     }, []);
 
 
-
+    
     return (
         <Fragment>
             {basemap === 'Planet NICFI' && (<Timeline planet={planet} setPlanetLayer={setPlanetLayer} matches={matches}/>)}
-            <MapContainer style={{
-                width: '100%',
-                height: '100vh',
-            }}
-                center={[initMap.lat, initMap.long]}
-                zoom={initMap.zoom}
-                zoomControl={false}
-            >
-                {controlpanel}
-
-                {layers}
-
-                {basemapUrl && (<TileLayer
-                    attribution='basemap'
-                    url={basemapUrl}
-                />)}
-                
-                <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-            </MapContainer>
+            
+                <MapContainer style={{
+                    width: '100%',
+                    height: '100vh',
+                }}
+                    center={[initMap.lat, initMap.long]}
+                    zoom={initMap.zoom}
+                    zoomControl={false}
+                >
+                    {controlpanel}
+    
+                    {layers}
+    
+                    {basemapUrl && (<TileLayer
+                        attribution='basemap'
+                        url={basemapUrl}
+                    />)}
+                    
+                    <TileLayer
+                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    />
+                </MapContainer>
+           
         </Fragment>
     )
 }
