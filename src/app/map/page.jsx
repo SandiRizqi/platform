@@ -2,6 +2,9 @@
 import React from 'react';
 import { useRef, useEffect, useState } from 'react';
 import { Fragment } from 'react';
+import { Provider } from 'react-redux';
+import {store} from '@/app/_store/store';
+import { useSelector  } from 'react-redux';
 import { Map, Source, Layer } from 'react-map-gl';
 import { useTheme, useMediaQuery } from '@mui/material';
 import GciTimeline from '@/components/GciTimeline';
@@ -56,7 +59,8 @@ export default function Maps({ configOptions }) {
 
 
     return (
-        <Fragment >
+        <Provider store={store}>
+            <Fragment >
             <div className={styles.mapcontainer}>
                 <div className={styles.mapcanvas}>
                     <Map
@@ -96,5 +100,6 @@ export default function Maps({ configOptions }) {
                 </div>
             </div>
         </Fragment>
+        </Provider>
     )
 }

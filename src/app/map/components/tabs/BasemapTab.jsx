@@ -1,20 +1,25 @@
 import React from 'react';
 import { BASEMAPS } from '../conts';
 import { Accordion, AccordionSummary, AccordionDetails, Typography } from '@mui/material';
+import { useSelector, useDispatch } from 'react-redux';
+import { setbasemap } from '@/app/_store/features/controlSlice';
+
 
 export default function BasemapTab() {
-  const [active, setActive] = React.useState('')
+  const selectedBasemap = useSelector((state) => state.control.selectedBasemap);
+  const dispatch =  useDispatch();
+  //const [active, setActive] = React.useState(selectedBasemap);
 
   function handleClick (title) {
-    if (title === active) {
-      return setActive('');
+    if (title === selectedBasemap) {
+      return dispatch(setbasemap({basemap: ''}))
     }
-    setActive(title);
+    dispatch(setbasemap({basemap: title}))
   }
   return (
     <React.Fragment>
       {BASEMAPS.map((obj, idx) => (
-        <Accordion key={idx} expanded={obj.title === active} onChange={() => handleClick(obj.title)}>
+        <Accordion key={idx} expanded={obj.title === selectedBasemap} onChange={() => handleClick(obj.title)} >
           <AccordionSummary>
             <p style={{fontSize: '14px'}}><strong>{obj.title}</strong></p>
           </AccordionSummary>

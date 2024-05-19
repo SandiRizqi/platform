@@ -16,7 +16,7 @@ function a11yProps(index) {
     return {
         id: `full-width-tab-${index}`,
         'aria-controls': `full-width-tabpanel-${index}`,
-        key:{index}
+        'key':{index}
     };
 }
 
@@ -47,11 +47,19 @@ export default function TabSidebar({ CloseButton }) {
                     <Tab label="BASEMAP" {...a11yProps(0)} />
                     <Tab label="LAYERS" {...a11yProps(1)} />
                     <Tab label="ALERT" {...a11yProps(2)} />
+                    <div>
                     {CloseButton}
+                    </div>
                 </Tabs>
             </Box>
             <Box sx={{minHeight: '10vh', borderRadius: '0 0 5px 5px', color: 'grey', padding: '5px', bgcolor: 'primary.main', maxWidth: '350px'}}>
-                {TABS[value]}
+                {TABS.map((obj, idx) => {
+                    if (idx === value){
+                        return <div key={idx}>{obj}</div>
+                    } else {
+                        return <div key={idx}></div>
+                    }
+                })}
             </Box>
         </React.Fragment>
     )

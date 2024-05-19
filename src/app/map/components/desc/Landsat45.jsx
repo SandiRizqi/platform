@@ -12,7 +12,6 @@ export default function Landsat45() {
         <p><strong>Data availability</strong>: global, Level-1 from August 1982 to May 2012, Level-2 from July 1984 to May 2012.</p>
         <br />
         <p><strong>Common Usage</strong>: Monitoring of vegetation, ice and water resources, change detection and the creation of land use - land cover maps.</p>
-
     </div>
   )
 }
