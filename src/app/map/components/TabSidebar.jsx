@@ -1,37 +1,40 @@
+'use client'
 import React from 'react'
-import { Tab, Tabs, Box, Typography } from '@mui/material';
+import { Tab, Tabs, Box } from '@mui/material';
 import BasemapTab from './tabs/BasemapTab';
 import LayersTab from './tabs/LayersTab';
 import AlertTab from './tabs/AlertTab';
 
 
-const TABS = [
-    <BasemapTab key={0}/>,
-    <LayersTab key={1}/>,
-    <AlertTab key={2}/>
+
+
+const TABS_LIST = [
+    {
+        title: 'BASEMAP',
+        component: <BasemapTab/>,
+    },
+    {
+        title: 'LAYERS',
+        component: <LayersTab />,
+    },
+
+    {
+        title: 'ALERTS',
+        component: <AlertTab />,
+    },
+
 ]
 
 
-function a11yProps(index) {
-    return {
-        id: `full-width-tab-${index}`,
-        'aria-controls': `full-width-tabpanel-${index}`,
-        'key':{index}
-    };
-}
 
 export default function TabSidebar({ CloseButton }) {
-
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
 
-    const handleChangeIndex = (index) => {
-        setValue(index);
-    };
-
+    
 
     return (
         <React.Fragment>
@@ -41,21 +44,22 @@ export default function TabSidebar({ CloseButton }) {
                     onChange={handleChange}
                     indicatorColor="secondary"
                     textColor="inherit"
-                    variant="fullWidth"
-                    aria-label="full width tabs example"
+                    variant={"fullWidth"}
+                    aria-label="tabs"
+
                 >
-                    <Tab label="BASEMAP" {...a11yProps(0)} />
-                    <Tab label="LAYERS" {...a11yProps(1)} />
-                    <Tab label="ALERT" {...a11yProps(2)} />
-                    <div>
+
+                    {TABS_LIST.map((obj, idx) => (
+                        <Tab label={obj.title} key={idx} />
+                    ))}
+                    
                     {CloseButton}
-                    </div>
                 </Tabs>
             </Box>
             <Box sx={{minHeight: '10vh', borderRadius: '0 0 5px 5px', color: 'grey', padding: '5px', bgcolor: 'primary.main', maxWidth: '350px'}}>
-                {TABS.map((obj, idx) => {
+                {TABS_LIST.map((obj, idx) => {
                     if (idx === value){
-                        return <div key={idx}>{obj}</div>
+                        return <div key={idx}>{obj.component}</div>
                     } else {
                         return <div key={idx}></div>
                     }

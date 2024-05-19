@@ -2,7 +2,7 @@ import React from 'react';
 import { BASEMAPS } from '../conts';
 import { Accordion, AccordionSummary, AccordionDetails, Typography } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
-import { setbasemap } from '@/app/_store/features/controlSlice';
+import { setbasemap, setbasemapurl } from '@/app/_store/features/controlSlice';
 
 
 export default function BasemapTab() {
@@ -15,7 +15,11 @@ export default function BasemapTab() {
       return dispatch(setbasemap({basemap: ''}))
     }
     dispatch(setbasemap({basemap: title}))
-  }
+    dispatch(setbasemapurl({basemapUrl: null}))
+  };
+
+
+
   return (
     <React.Fragment>
       {BASEMAPS.map((obj, idx) => (

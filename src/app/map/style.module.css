@@ -37,8 +37,7 @@
     position: absolute;
     top: calc(45px + .5rem);
     left: .5rem;
-    background-color: #FFF;
+    background-color: none;
     border-radius: 5px;
-    z-index: 1;
-
+    z-index: 999;
 }

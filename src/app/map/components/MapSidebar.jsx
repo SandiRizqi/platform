@@ -12,7 +12,7 @@ export default function MapSidebar() {
 
     function ToogleButton() {
         return (
-            <Fab size="medium" edge="start" color="inherit" arial-label="tooglepanel" disableFocusRipple sx={{ boxShadow: 5 }} onClick={() => setToggle(!toggle)}>
+            <Fab size="medium" edge="start" color="secondary" arial-label="tooglepanel" disableFocusRipple sx={{ boxShadow: 5 }} onClick={() => setToggle(!toggle)}>
                 <ChevronRightOutlined size='medium' />
             </Fab>
         )
@@ -38,9 +38,11 @@ export default function MapSidebar() {
 
     return (
         <Fragment>
-                <Box className={styles.SidebarContainer} sx={{ flexGrow: 1, bgcolor: 'inherit', borderRadius: '5px' }}>
-                    {toggle ? (<TabButton />) : <ToogleButton />}
-                </Box>
+            <div className={styles.SidebarContainer}>
+                {toggle ? (<Box sx={{ flexGrow: 1, bgcolor: 'none', borderRadius: '5px', zIndex: 999 }}>
+                    <TabButton />
+                </Box>) : <ToogleButton />}
+            </div>
         </Fragment>
     )
 }

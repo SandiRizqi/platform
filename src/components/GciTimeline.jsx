@@ -9,15 +9,14 @@ export default function GciTimeline({ marks, setSelected, step }) {
     
     
 
-    function handleChange(e) {
-        const value = e.target.value;
+    function handleChange(value) {
         setValue(value);
         setSelected(value);
     };
 
     useEffect(() => {
         if (marks) {
-            setValue(marks.length)
+            setValue(marks.length + 1)
         }
 
     }, [marks, step])
@@ -47,10 +46,10 @@ export default function GciTimeline({ marks, setSelected, step }) {
                     marks
                     valueLabelDisplay='off'
                     min={0}
-                    max={marks.length}
+                    max={marks.length - 1}
                     value={value}
                     step={step}
-                    onChange={handleChange}
+                    onChange={(e) => handleChange(e.target.value)}
                     size='small'
                     color='primary'
                     sx={{
