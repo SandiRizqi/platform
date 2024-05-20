@@ -43,6 +43,8 @@ export default function MapCanvas({ controlpanel, layers }) {
 
 
 
+
+
     function setPlanetLayer(index) {
         const selected = planet[index];
         dispatch(setbasemapurl({basemapUrl: selected._links.tiles}))
@@ -91,6 +93,7 @@ export default function MapCanvas({ controlpanel, layers }) {
                     {basemapUrl && (<TileLayer
                         attribution='basemap'
                         url={basemapParams ? `${basemapUrl}${basemapParams}`: basemapUrl}
+                        tileSize={256}
                     />)}
                     
                     <TileLayer

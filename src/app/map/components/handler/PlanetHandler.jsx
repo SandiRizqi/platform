@@ -35,11 +35,13 @@ const OPTIONS = [{
 {
     title: 'MSAVI2',
     image: MSAVI2.src,
+    desc: 'Modified Soil-adjusted Vegetation Index',
     url: '&proc=msavi2'
 },
 {
     title: 'MTVI2',
     image: MTVI2.src,
+    desc: 'Modified Triangular Vegetation Index',
     url: '&proc=mtvi2'
 },
 {
@@ -67,7 +69,7 @@ export default function PlanetHandler() {
         dispatch(setbasemapparams({basemapParams: item['url'] }));
     };
 
-    console.log(RGB);
+    
 
 
 
