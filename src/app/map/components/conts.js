@@ -1,4 +1,5 @@
 import PlanetNICFI from "./desc/PlanetNICFI";
+import PlanetHandler from "./handler/PlanetHandler";
 import Sentinel2 from "./desc/Sentinel2";
 import Landsat45 from "./desc/Landsat45";
 
@@ -7,7 +8,7 @@ export const BASEMAPS = [
     {
         title: 'Planet NICFI',
         desc: <PlanetNICFI />,
-        component: null
+        component: <PlanetHandler />
     },
     {
         title: 'Sentinel-2',

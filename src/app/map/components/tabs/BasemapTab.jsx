@@ -1,6 +1,6 @@
 import React from 'react';
 import { BASEMAPS } from '../conts';
-import { Accordion, AccordionSummary, AccordionDetails, Typography } from '@mui/material';
+import { Accordion, AccordionSummary, AccordionDetails, Typography, Box, Divider } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import { setbasemap, setbasemapurl } from '@/app/_store/features/controlSlice';
 
@@ -23,14 +23,19 @@ export default function BasemapTab() {
   return (
     <React.Fragment>
       {BASEMAPS.map((obj, idx) => (
-        <Accordion key={idx} expanded={obj.title === selectedBasemap} onChange={() => handleClick(obj.title)} >
+        <Accordion key={idx} expanded={obj.title === selectedBasemap} onChange={() => handleClick(obj.title)}>
           <AccordionSummary>
-            <p style={{fontSize: '14px'}}><strong>{obj.title}</strong></p>
+            {obj.title}
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>
+            <Typography style={{marginBottom: '5px'}}>
               {obj?.desc}
             </Typography>
+            <br />
+            <Divider />
+            <Box sx={{marginTop: '5px'}}>
+              {obj?.component}
+            </Box>
           </AccordionDetails>
         </Accordion>
       ))}

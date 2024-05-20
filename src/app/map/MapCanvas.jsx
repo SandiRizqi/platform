@@ -36,6 +36,7 @@ export default function MapCanvas({ controlpanel, layers }) {
     const matches = useMediaQuery(theme.breakpoints.up('md'));
     const basemap = useSelector((state) => state.control.selectedBasemap)
     const basemapUrl = useSelector((state) => state.control.basemapUrl);
+    const basemapParams = useSelector((state) => state.control.basemapParams);
     const dispatch = useDispatch();
     const [planet, setPlanet] = useState([]);
 
@@ -72,6 +73,7 @@ export default function MapCanvas({ controlpanel, layers }) {
     
     return (
         <Fragment>
+            {controlpanel}
             {basemap === 'Planet NICFI' && (<Timeline planet={planet} setPlanetLayer={setPlanetLayer} matches={matches}/>)}
             
                 <MapContainer style={{
@@ -82,13 +84,13 @@ export default function MapCanvas({ controlpanel, layers }) {
                     zoom={initMap.zoom}
                     zoomControl={false}
                 >
-                    {controlpanel}
+                    
     
                     {layers}
     
                     {basemapUrl && (<TileLayer
                         attribution='basemap'
-                        url={basemapUrl}
+                        url={basemapParams ? `${basemapUrl}${basemapParams}`: basemapUrl}
                     />)}
                     
                     <TileLayer
