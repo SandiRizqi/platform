@@ -87,19 +87,20 @@ export default function MapCanvas({ controlpanel, layers }) {
                     zoomControl={false}
                 >
                     
-    
-                    {layers}
-    
-                    {basemapUrl && (<TileLayer
-                        attribution='basemap'
-                        url={basemapParams ? `${basemapUrl}${basemapParams}`: basemapUrl}
-                        tileSize={256}
-                    />)}
                     
                     <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
+
+                    {basemapUrl && (<TileLayer
+                                            attribution='basemap'
+                                            url={basemapParams ? `${basemapUrl}${basemapParams}`: basemapUrl}
+                                            tileSize={256}
+                                        />)}
+
+
+                    {layers}
                 </MapContainer>
            
         </Fragment>

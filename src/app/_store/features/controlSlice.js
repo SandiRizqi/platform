@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   selectedBasemap: '',
-  basemapUrl : "https://earthengine.googleapis.com/v1/projects/earthengine-legacy/maps/fe9e7cf8b914dde8e384e4783be25b6a-23137810f154b480512ac4a5fe600cc3/tiles/{z}/{x}/{y}",
+  basemapUrl : null,
   basemapParams: null
 }
 

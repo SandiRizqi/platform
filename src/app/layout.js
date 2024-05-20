@@ -5,6 +5,7 @@ import "@fontsource/roboto/700.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "leaflet/dist/leaflet.css"
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css";
+import 'dayjs/locale/de';
 import "./globals.css";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { ThemeProvider } from "@mui/material";
@@ -22,6 +23,8 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+
+  
   return (
     <html lang="en">
       <head>
