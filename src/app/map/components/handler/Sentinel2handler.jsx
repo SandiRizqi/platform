@@ -1,9 +1,14 @@
 import React from 'react';
+import { useState } from 'react';
+import moment from 'moment';
 import { Stack, Box, Typography, Slider, styled } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers';
 import GciButton from '@/components/GciButton';
+import { useDispatch } from 'react-redux';
+import { setbasemapurl } from '@/app/_store/features/controlSlice';
+import axios from 'axios';
 
 
 const style = {
@@ -51,7 +56,47 @@ const PrettoSlider = styled(Slider)({
 
 
 export default function Sentinel2handler() {
+    const [data, setData] = useState({collection: 'COPERNICUS/S2_SR_HARMONIZED', maxcloud: 20});
+    const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch();
 
+
+    function handleChange(e, key) {
+        const value =  moment(e['$d']).format('YYYY-MM-DD');
+        setData({...data, [key]: value})
+    };
+
+    function handleSlider(e){
+        setData({...data, maxcloud: e.target.value})
+    }
+
+    async function handleSubmit () {
+    
+        setLoading(true)
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+            }
+        };
+
+
+        try {
+            axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/tiles/basemap`, data, config)
+            .then((res) => {
+                dispatch(setbasemapurl({basemapUrl: res.data['_tiles']}))
+                setLoading(false)
+                
+            })
+            .catch((e) => {
+               console.log(e)
+               setLoading(false)
+            })
+        } catch (e) {
+            console.log(e)
+            setLoading(false)
+        }
+
+    }
 
 
 
@@ -65,16 +110,16 @@ export default function Sentinel2handler() {
                         flexDirection: 'row',
                         padding: 0,
                     }}>
-                        <DatePicker label={'start date'} sx={style} />
-                        <DatePicker label={'end date'} sx={style} />
+                        <DatePicker label={'start date'} sx={style} onAccept={(e)=> handleChange(e, 'startdate')} format='YYYY-MM-DD'/>
+                        <DatePicker label={'end date'} sx={style} onAccept={(e)=> handleChange(e, 'enddate')} format='YYYY-MM-DD'/>
                     </Box>
                 </LocalizationProvider>
                 <br />
                 <Box sx={{padding: '5px'}}>
                     <Typography>Cloud Cover (%)</Typography>
-                    <PrettoSlider aria-label="cloudcover" min={0} max={100} defaultValue={20}/>
+                    <PrettoSlider aria-label="cloudcover" min={0} max={100} defaultValue={20} onChange={(e) => handleSlider(e)}/>
                 </Box>
-                <GciButton color={"secondary"} variant={"contained"} isLoading>
+                <GciButton color={"secondary"} variant={"contained"} onClick={handleSubmit} isLoading={loading}>
                     Search
                 </GciButton>
             </Stack>
