@@ -56,7 +56,7 @@ export default function TabSidebar({ CloseButton }) {
                     {CloseButton}
                 </Tabs>
             </Box>
-            <Box sx={{minHeight: '10vh', borderRadius: '0 0 5px 5px', color: 'grey', bgcolor: 'primary.main', maxWidth: '350px', maxHeight: '70vh', overflowY: 'auto'}}>
+            <Box sx={{minHeight: '10vh', borderRadius: '0 0 5px 5px', color: 'grey', bgcolor: 'primary.main', maxWidth: '375px'}}>
                 {TABS_LIST.map((obj, idx) => {
                     if (idx === value){
                         return <div key={idx}>{obj.component}</div>

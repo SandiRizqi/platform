@@ -20,7 +20,11 @@ export default function GciTimeline({ marks, setSelected, step }) {
             setValue(marks.length + 1)
         }
 
-    }, [marks, step])
+    }, [marks, step]);
+
+
+
+
 
 
     return (
