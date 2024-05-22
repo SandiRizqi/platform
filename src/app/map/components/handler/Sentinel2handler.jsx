@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import moment from 'moment';
-import { Stack, Box, Typography, Slider, styled } from '@mui/material';
+import { Stack, Box, Typography, Slider, styled, Alert } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers';
@@ -9,6 +9,7 @@ import GciButton from '@/components/GciButton';
 import { useDispatch } from 'react-redux';
 import { setbasemapurl } from '@/app/_store/features/controlSlice';
 import axios from 'axios';
+import { ErrorMessage } from '@/components/GciAlert';
 
 
 const style = {
@@ -71,6 +72,7 @@ export default function Sentinel2handler() {
     }
 
     async function handleSubmit () {
+       
     
         setLoading(true)
         const config = {
@@ -80,7 +82,9 @@ export default function Sentinel2handler() {
         };
 
 
+
         try {
+      
             axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/tiles/basemap`, data, config)
             .then((res) => {
                 dispatch(setbasemapurl({basemapUrl: res.data['_tiles']}))
@@ -88,7 +92,7 @@ export default function Sentinel2handler() {
                 
             })
             .catch((e) => {
-               console.log(e)
+               ErrorMessage(e)
                setLoading(false)
             })
         } catch (e) {
@@ -98,11 +102,13 @@ export default function Sentinel2handler() {
 
     }
 
+    const Err = !data['startdate'] || !data['enddate'];
 
 
     return (
         <>
             <Stack style={{ minHeight: '20vh', marginTop: '5px', padding: '5px' }} spacing={1} direction={'column'} alignItems={'start'} alignContent={'center'}>
+                
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <Typography>Date Range</Typography>
                     <Box style={{
@@ -119,7 +125,8 @@ export default function Sentinel2handler() {
                     <Typography>Cloud Cover (%)</Typography>
                     <PrettoSlider aria-label="cloudcover" min={0} max={100} defaultValue={20} onChange={(e) => handleSlider(e)}/>
                 </Box>
-                <GciButton color={"secondary"} variant={"contained"} onClick={handleSubmit} isLoading={loading}>
+                
+                <GciButton color={"secondary"} variant={"contained"} onClick={handleSubmit} isLoading={loading} disabled={Err}>
                     Search
                 </GciButton>
             </Stack>

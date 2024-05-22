@@ -4,6 +4,7 @@ import { Tab, Tabs, Box } from '@mui/material';
 import BasemapTab from './tabs/BasemapTab';
 import LayersTab from './tabs/LayersTab';
 import AlertTab from './tabs/AlertTab';
+import AnalisisTab from './tabs/AnalisisTab';
 
 
 
@@ -16,6 +17,10 @@ const TABS_LIST = [
     {
         title: 'LAYERS',
         component: <LayersTab />,
+    },
+    {
+        title: 'ANALYSIS',
+        component: <AnalisisTab />,
     },
 
     {
@@ -38,13 +43,17 @@ export default function TabSidebar({ CloseButton }) {
 
     return (
         <React.Fragment>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider', maxWidth: '350px' }}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider', maxWidth: '350px' }} style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        padding: 0,
+                    }}>
                 <Tabs
                     value={value}
                     onChange={handleChange}
                     indicatorColor="secondary"
                     textColor="inherit"
-                    variant={"fullWidth"}
+                    variant="fullWidth"
                     aria-label="tabs"
 
                 >
@@ -53,8 +62,9 @@ export default function TabSidebar({ CloseButton }) {
                         <Tab label={obj.title} key={idx} />
                     ))}
                     
-                    {CloseButton}
+                    
                 </Tabs>
+                {CloseButton}
             </Box>
             <Box sx={{minHeight: '10vh', borderRadius: '0 0 5px 5px', color: 'grey', bgcolor: 'primary.main', maxWidth: '375px'}}>
                 {TABS_LIST.map((obj, idx) => {
