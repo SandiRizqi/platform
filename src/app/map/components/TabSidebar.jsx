@@ -23,11 +23,6 @@ const TABS_LIST = [
         component: <AnalisisTab />,
     },
 
-    {
-        title: 'ALERTS',
-        component: <AlertTab />,
-    },
-
 ]
 
 

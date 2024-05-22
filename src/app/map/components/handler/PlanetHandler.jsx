@@ -74,7 +74,7 @@ export default function PlanetHandler() {
 
 
     return (
-        <div >
+        <div  style={{maxHeight: '25vh', overflowY: 'auto'}}>
             <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }} aria-label="planetvis">
                 {OPTIONS.map((obj, idx) => (
                     <ListItemButton onClick={() => changeVisual(idx)} key={idx} disableRipple sx={{bgcolor: idx === visual ? 'secondary.light': 'background.paper', 

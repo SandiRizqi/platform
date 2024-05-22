@@ -68,7 +68,7 @@ export default function BasemapTab() {
             <br />
             <Divider />
             <BasemapStyler />
-            <Box sx={{maxHeight: '25vh', overflowY: 'auto'}}>
+            <Box>
               {obj?.component}
             </Box>
           </AccordionDetails>
