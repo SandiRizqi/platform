@@ -5,15 +5,15 @@ import styles from '../style.module.css';
 import { Box, AppBar } from '@mui/material';
 import TabSidebar from './TabSidebar';
 import { Fab, IconButton } from '@mui/material';
-import { ChevronRightOutlined, ChevronLeftOutlined } from '@mui/icons-material';
+import { ChevronLeftOutlined, MenuOutlined } from '@mui/icons-material';
 
 export default function MapSidebar() {
     const [toggle, setToggle] = React.useState(true);
 
     function ToogleButton() {
         return (
-            <Fab size="medium" edge="start" color="secondary" arial-label="tooglepanel" disableFocusRipple sx={{ boxShadow: 5 }} onClick={() => setToggle(!toggle)}>
-                <ChevronRightOutlined size='medium' />
+            <Fab size="small" edge="start" color="secondary" arial-label="tooglepanel" disableFocusRipple sx={{ boxShadow: 5 }} onClick={() => setToggle(!toggle)}>
+                <MenuOutlined size='small' />
             </Fab>
         )
     };

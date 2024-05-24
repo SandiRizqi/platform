@@ -41,3 +41,20 @@
     border-radius: 5px;
     z-index: 999;
 }
+
+
+.ControlContainer {
+    position: absolute;
+    top: calc(45px + .5rem);
+    right: .5rem;
+    background-color: none;
+    border-radius: 5px;
+    z-index: 998;
+
+}
+
+.ControlButtonContainer {
+    background-color: rgba(117, 164, 127, 1);
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+
+}

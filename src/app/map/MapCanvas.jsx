@@ -31,7 +31,7 @@ function Timeline({planet, setPlanetLayer, matches}) {
 
 
 
-export default function MapCanvas({ controlpanel, layers }) {
+export default function MapCanvas({ sidebar, control }) {
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.up('md'));
     const basemap = useSelector((state) => state.control.selectedBasemap)
@@ -75,7 +75,8 @@ export default function MapCanvas({ controlpanel, layers }) {
     
     return (
         <Fragment>
-            {controlpanel}
+            {sidebar}
+            {control}
             {basemap === 'Planet NICFI' && (<Timeline planet={planet} setPlanetLayer={setPlanetLayer} matches={matches}/>)}
             
                 <MapContainer style={{
@@ -100,7 +101,6 @@ export default function MapCanvas({ controlpanel, layers }) {
                                         />)}
 
 
-                    {layers}
                 </MapContainer>
            
         </Fragment>

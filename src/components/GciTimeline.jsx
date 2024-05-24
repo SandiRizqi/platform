@@ -38,7 +38,7 @@ export default function GciTimeline({ marks, setSelected, step }) {
                 flexDirection: 'row',
                 gap: 1,
                 fontSize: '4px',
-                zIndex: 999
+                zIndex: 998
             }}
                 m={1}
                 px={2}
