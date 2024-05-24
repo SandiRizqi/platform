@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import { store } from '@/app/_store/store';
 import { useTheme, useMediaQuery } from '@mui/material';
 import MapSidebar from './components/MapSidebar';
-import Controls from './components/controls/Controls';
 import styles from './style.module.css';
 import dynamic from 'next/dynamic';
 
@@ -34,8 +33,7 @@ export default function Maps() {
                 <div className={styles.mapcontainer}>
                     <div className={styles.mapcanvas}>
                         <MyMap
-                            sidebar={<MapSidebar />}
-                            control={<Controls />}
+                            Sidebar={<MapSidebar />}
                         >
                         </MyMap>
                     </div>

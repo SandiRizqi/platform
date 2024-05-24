@@ -4,9 +4,10 @@ import { useState, useEffect } from 'react';
 import { Fragment } from 'react';
 import GciTimeline from '@/components/GciTimeline';
 import { useTheme, useMediaQuery } from '@mui/material';
-import { MapContainer, TileLayer } from 'react-leaflet';
+import { MapContainer, TileLayer, useMap } from 'react-leaflet';
 import { useDispatch, useSelector } from 'react-redux';
 import { setbasemapurl } from '../_store/features/controlSlice';
+import Controls from './components/controls/Controls';
 import axios from 'axios';
 import styles from './style.module.css';
 
@@ -31,7 +32,7 @@ function Timeline({planet, setPlanetLayer, matches}) {
 
 
 
-export default function MapCanvas({ sidebar, control }) {
+export default function MapCanvas({ Sidebar}) {
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.up('md'));
     const basemap = useSelector((state) => state.control.selectedBasemap)
@@ -75,8 +76,8 @@ export default function MapCanvas({ sidebar, control }) {
     
     return (
         <Fragment>
-            {sidebar}
-            {control}
+            {Sidebar}
+            
             {basemap === 'Planet NICFI' && (<Timeline planet={planet} setPlanetLayer={setPlanetLayer} matches={matches}/>)}
             
                 <MapContainer style={{
@@ -84,8 +85,10 @@ export default function MapCanvas({ sidebar, control }) {
                     height: '100vh',
                 }}
                     center={[initMap.lat, initMap.long]}
+                    doubleClickZoom={false}
                     zoom={initMap.zoom}
                     zoomControl={false}
+                
                 >
                     
                     
@@ -100,6 +103,7 @@ export default function MapCanvas({ sidebar, control }) {
                                             tileSize={256}
                                         />)}
 
+                <Controls />
 
                 </MapContainer>
            
