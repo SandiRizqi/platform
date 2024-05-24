@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { Stack,  IconButton} from '@mui/material';
+import { Stack,  IconButton, Tooltip} from '@mui/material';
 import PentagonOutlinedIcon from '@mui/icons-material/PentagonOutlined';
-import PlaceOutlinedIcon from '@mui/icons-material/PlaceOutlined';
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
 import SquareFootOutlinedIcon from '@mui/icons-material/SquareFootOutlined';
+import CropSquareOutlinedIcon from '@mui/icons-material/CropSquareOutlined';
 import { useLeafletContext } from '@react-leaflet/core';
+import { useDispatch } from 'react-redux';
+import { setaoi } from '@/app/_store/features/controlSlice';
 import L from 'leaflet';
 import styles from '../../style.module.css';
 import 'leaflet-draw/dist/leaflet.draw.css';
@@ -32,15 +34,42 @@ const shapeOptions = {
   const drawOptions = {
     shapeOptions: shapeOptions,
     showArea: true, // Show area in the tooltip
-    repeatMode: true // Enable repeat mode
+    repeatMode: false // Enable repeat mode
   };
 
 
 export default function Controls() {
     const context = useLeafletContext();
+    const dispatch = useDispatch();
+    const [active, setActive] = useState(null);
     const { map } = context;
 
-    const handleClick = ({drawType}) => {
+
+    const CoordToGeoJSON = ({coord}) => {
+        const geojsonData = {
+            type: 'FeatureCollection',
+            id: String(Date.now()),
+            features: [
+              {
+                type: 'Feature',
+                geometry: {
+                  type: 'Polygon',
+                  coordinates: [
+                    coord
+                  ]
+                },
+                properties: {
+                  name: 'aoi'
+                }
+              },
+              // Add more features as needed
+            ]
+          };
+        return geojsonData
+    }
+
+    const handleClick = ({drawType, index}) => {
+        
        
         let drawControl;
     
@@ -62,16 +91,26 @@ export default function Controls() {
             break;
           default:
             drawControl = new L.Draw.Marker(map);
+        };
+
+        if(index === active){
+            drawControl.disable();
+            return setActive(null);
         }
-    
+        
         drawControl.enable();
+        return setActive(index);
     };
 
 
     useEffect(() => {
         map.on(L.Draw.Event.CREATED, (e) => {
             const layer = e.layer;
-            map.addLayer(layer);
+            const latlngs = layer._latlngs[0]; // Get the array of LatLngs representing the polygon
+            const coordinates = latlngs.map(latlng => [latlng.lng, latlng.lat]); 
+            const geojson = CoordToGeoJSON({coord: coordinates});
+            dispatch(setaoi({aoi: geojson}))
+            setActive(null);
           });
       
         map.on(L.Draw.Event.EDITED, (e) => {
@@ -89,32 +128,79 @@ export default function Controls() {
             map.off(L.Draw.Event.EDITED);
             map.off(L.Draw.Event.DELETED);
           };
-    }, [context])
+    }, [context]);
+
+
+    const CreatePolygon = ({idx}) => {
+        return (
+            <IconButton size='medium' disableRipple onClick={() => handleClick({ drawType: 'polygon', index:idx })} >
+                <PentagonOutlinedIcon color='primary' />
+            </IconButton>
+
+        );
+    }
+
+    const CreateRectangle = ({idx}) => {
+        return (
+            <IconButton size='medium' disableRipple onClick={() => handleClick({ drawType: 'rectangle', index:idx })} >
+                <CropSquareOutlinedIcon color='primary' />
+            </IconButton>
+
+        );
+    }
+
+    const Analize = ({idx}) => {
+        return (
+            <IconButton size='medium' disableRipple >
+                <InsertChartOutlinedIcon color='primary' />
+            </IconButton>
+
+
+        );
+    }
+
+
+    const Measure = ({idx}) => {
+        return (
+            <IconButton size='medium' disableRipple >
+                <SquareFootOutlinedIcon color='primary' />
+            </IconButton>
+
+        )
+    }
+
+
+    const ControlList = [
+        {
+            title: "Create Polygon",
+            component: <CreatePolygon idx={0}/>
+        },
+        {
+            title: "Create Rectangle",
+            component: <CreateRectangle idx={1}/>
+        },
+        {
+            title: "Spectral Analysis",
+            component: <Analize idx={2}/>
+        },
+        {
+            title: "Measure",
+            component: <Measure idx={3}/>
+        },
+
+    ]
 
 
   return (
     <div className={styles.ControlContainer}>
         <Stack spacing={1} >
-              <div className={styles.ControlButtonContainer} >
-                  <IconButton size='medium' disableRipple onClick={() => handleClick({drawType: 'polygon'})} >
-                      <PentagonOutlinedIcon color='primary' />
-                  </IconButton>
-              </div>
-              <div className={styles.ControlButtonContainer} >
-                  <IconButton size='medium' disableRipple onClick={() => handleClick({drawType: 'marker'})} >
-                      <PlaceOutlinedIcon color='primary' />
-                  </IconButton>
-              </div>
-              <div className={styles.ControlButtonContainer}>
-                  <IconButton size='medium' disableRipple >
-                      <InsertChartOutlinedIcon color='primary' />
-                  </IconButton>
-              </div>
-              <div className={styles.ControlButtonContainer}>
-                  <IconButton size='medium' disableRipple >
-                      <SquareFootOutlinedIcon color='primary' />
-                  </IconButton>
-              </div>
+            {ControlList.map((obj, idx) => (
+                <div className={active !== idx ? styles.ControlButtonContainer : styles.ControlButtonContainerActive} key={idx}>
+                    <Tooltip title={obj.title} placement='left-start'>
+                        {obj.component}
+                    </Tooltip>
+                </div>
+            ))}   
         </Stack>
     </div>
   )

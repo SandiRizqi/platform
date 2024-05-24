@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   selectedBasemap: '',
   basemapUrl : null,
-  basemapParams: null
+  basemapParams: null,
+  aoi: null
 }
 
 export const controlSlice = createSlice({
@@ -19,10 +20,13 @@ export const controlSlice = createSlice({
     setbasemapparams: (state, action ) => {
       state.basemapParams = action.payload.basemapParams;
     },
+    setaoi: (state, action) => {
+      state.aoi = action.payload.aoi;
+    },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setbasemap, setbasemapurl, setbasemapparams } = controlSlice.actions
+export const { setbasemap, setbasemapurl, setbasemapparams, setaoi } = controlSlice.actions
 
 export default controlSlice.reducer

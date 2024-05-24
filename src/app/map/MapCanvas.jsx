@@ -4,11 +4,13 @@ import { useState, useEffect } from 'react';
 import { Fragment } from 'react';
 import GciTimeline from '@/components/GciTimeline';
 import { useTheme, useMediaQuery } from '@mui/material';
-import { MapContainer, TileLayer, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
+import { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setbasemapurl } from '../_store/features/controlSlice';
 import Controls from './components/controls/Controls';
 import axios from 'axios';
+import L from 'leaflet';
 import styles from './style.module.css';
 
 
@@ -17,7 +19,15 @@ const initMap = {
     long: 117,
     lat: 0,
     zoom: 5
-}
+};
+
+const geoJSONStyle = {
+    fillColor: 'yellow',
+    color: 'blue',
+    weight: 2,
+    opacity: 1,
+    fillOpacity: 0.3
+  };
 
 
 
@@ -38,6 +48,7 @@ export default function MapCanvas({ Sidebar}) {
     const basemap = useSelector((state) => state.control.selectedBasemap)
     const basemapUrl = useSelector((state) => state.control.basemapUrl);
     const basemapParams = useSelector((state) => state.control.basemapParams);
+    const AOI = useSelector((state) => state.control.aoi)
     const dispatch = useDispatch();
     const [planet, setPlanet] = useState([]);
 
@@ -73,6 +84,17 @@ export default function MapCanvas({ Sidebar}) {
     }, []);
 
 
+    const AOILayer = useMemo(() => {
+        if (AOI) {
+            return (
+                <GeoJSON attribution="&copy; Geocircle Indonesia" data={AOI} style={geoJSONStyle} key={AOI.id}/>
+            )
+        };
+        return null ;
+
+    }, [AOI])
+
+
     
     return (
         <Fragment>
@@ -102,6 +124,9 @@ export default function MapCanvas({ Sidebar}) {
                                             url={basemapParams ? `${basemapUrl}${basemapParams}`: basemapUrl}
                                             tileSize={256}
                                         />)}
+                    
+                    {AOILayer}
+                    
 
                 <Controls />
 
