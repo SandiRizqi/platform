@@ -21,6 +21,21 @@ L.Icon.Default.mergeOptions({
   shadowUrl: null,
 });
 
+
+const shapeOptions = {
+    color: '#3388ff',
+    weight: 2,
+    opacity: 0.6,
+    fillOpacity: 0.4,
+  };
+
+  const drawOptions = {
+    shapeOptions: shapeOptions,
+    showArea: true, // Show area in the tooltip
+    repeatMode: true // Enable repeat mode
+  };
+
+
 export default function Controls() {
     const context = useLeafletContext();
     const { map } = context;
@@ -37,7 +52,7 @@ export default function Controls() {
             drawControl = new L.Draw.Circle(map);
             break;
           case 'polygon':
-            drawControl = new L.Draw.Polygon(map);
+            drawControl = new L.Draw.Polygon(map, drawOptions);
             break;
           case 'rectangle':
             drawControl = new L.Draw.Rectangle(map);
