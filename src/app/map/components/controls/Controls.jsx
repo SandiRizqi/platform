@@ -5,6 +5,7 @@ import PentagonOutlinedIcon from '@mui/icons-material/PentagonOutlined';
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
 import SquareFootOutlinedIcon from '@mui/icons-material/SquareFootOutlined';
 import CropSquareOutlinedIcon from '@mui/icons-material/CropSquareOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { useLeafletContext } from '@react-leaflet/core';
 import { useDispatch } from 'react-redux';
 import { setaoi } from '@/app/_store/features/controlSlice';
@@ -42,6 +43,7 @@ export default function Controls() {
     const context = useLeafletContext();
     const dispatch = useDispatch();
     const [active, setActive] = useState(null);
+    const [activeDraw, setActiveDraw] = useState(null)
     const { map } = context;
 
 
@@ -69,7 +71,9 @@ export default function Controls() {
     }
 
     const handleClick = ({drawType, index}) => {
-        
+        if (activeDraw) {
+            activeDraw.disable();
+        };
        
         let drawControl;
     
@@ -86,12 +90,11 @@ export default function Controls() {
           case 'rectangle':
             drawControl = new L.Draw.Rectangle(map);
             break;
-          case 'polyline':
-            drawControl = new L.Draw.Polyline(map);
-            break;
           default:
             drawControl = new L.Draw.Marker(map);
         };
+
+        setActiveDraw(drawControl);
 
         if(index === active){
             drawControl.disable();
@@ -101,6 +104,12 @@ export default function Controls() {
         drawControl.enable();
         return setActive(index);
     };
+
+
+
+    const handleDeleteFeature =  () => {
+        dispatch(setaoi({aoi: null}))
+    }
 
 
     useEffect(() => {
@@ -169,6 +178,15 @@ export default function Controls() {
         )
     }
 
+    const Delete = ({idx}) => {
+        return (
+            <IconButton size='medium' disableRipple onClick={handleDeleteFeature} >
+                <DeleteOutlineOutlinedIcon color='primary' />
+            </IconButton>
+
+        )
+    }
+
 
     const ControlList = [
         {
@@ -180,28 +198,32 @@ export default function Controls() {
             component: <CreateRectangle idx={1}/>
         },
         {
+            title: "Delete feature",
+            component: <Delete idx={2}/>
+        },
+        {
             title: "Spectral Analysis",
-            component: <Analize idx={2}/>
+            component: <Analize idx={3}/>
         },
         {
             title: "Measure",
-            component: <Measure idx={3}/>
+            component: <Measure idx={4}/>
         },
 
     ]
 
 
   return (
-    <div className={styles.ControlContainer}>
-        <Stack spacing={1} >
-            {ControlList.map((obj, idx) => (
-                <div className={active !== idx ? styles.ControlButtonContainer : styles.ControlButtonContainerActive} key={idx}>
-                    <Tooltip title={obj.title} placement='left-start'>
-                        {obj.component}
-                    </Tooltip>
-                </div>
-            ))}   
-        </Stack>
-    </div>
+      <div className={styles.ControlContainer}>
+          <Stack spacing={1} >
+              {ControlList.map((obj, idx) => (
+                  <Tooltip title={obj.title} placement='left-start'>
+                      <div className={active !== idx ? styles.ControlButtonContainer : styles.ControlButtonContainerActive} key={idx}>
+                          {obj.component}
+                      </div>
+                  </Tooltip>
+              ))}
+          </Stack>
+      </div>
   )
 }
