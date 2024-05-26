@@ -42,6 +42,7 @@ export default function TabSidebar({ CloseButton }) {
                         display: 'flex',
                         flexDirection: 'row',
                         padding: 0,
+                        justifyContent: 'space-between'
                     }}>
                 <Tabs
                     value={value}
@@ -59,7 +60,9 @@ export default function TabSidebar({ CloseButton }) {
                     
                     
                 </Tabs>
+                
                 {CloseButton}
+                
             </Box>
             <Box sx={{minHeight: '10vh', borderRadius: '0 0 5px 5px', color: 'grey', bgcolor: 'primary.main', maxWidth: '375px', maxHeight: '85vh', overflowY: 'auto'}}>
                 {TABS_LIST.map((obj, idx) => {

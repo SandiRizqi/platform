@@ -107,8 +107,10 @@ export default function Controls() {
 
 
 
-    const handleDeleteFeature = () => {
-        dispatch(setaoi({ aoi: null }))
+    const handleDeleteFeature = (idx) => {
+        setActive(idx);
+        dispatch(setaoi({ aoi: null }));
+        setActive(null);
     }
 
 
@@ -180,7 +182,7 @@ export default function Controls() {
 
     const Delete = ({ idx }) => {
         return (
-            <IconButton size='medium' disableRipple onClick={handleDeleteFeature} >
+            <IconButton size='medium' disableRipple onClick={() => handleDeleteFeature(idx)} >
                 <DeleteOutlineOutlinedIcon color='primary' />
             </IconButton>
 

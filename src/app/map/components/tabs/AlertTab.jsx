@@ -1,7 +1,10 @@
-import React from 'react'
+import React from 'react';
+import AlertTabControl from './AlertTab/AlertTabControl';
 
 export default function AlertTab() {
   return (
-    <div>AlertTab</div>
+    <div>
+      <AlertTabControl />
+    </div>
   )
 }

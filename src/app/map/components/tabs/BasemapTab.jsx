@@ -55,7 +55,7 @@ export default function BasemapTab() {
   return (
     <React.Fragment>
       {BASEMAPS.map((obj, idx) => (
-        <Accordion key={idx} expanded={obj.title === selectedBasemap} onChange={() => handleClick(obj.title)}>
+        <Accordion key={idx} expanded={obj.title === selectedBasemap} onChange={() => handleClick(obj.title)} disabled={obj.disabled}>
           <AccordionSummary>
             <Typography>
             {obj.title}
