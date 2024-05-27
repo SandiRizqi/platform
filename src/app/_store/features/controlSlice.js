@@ -4,7 +4,12 @@ const initialState = {
   selectedBasemap: '',
   basemapUrl : null,
   basemapParams: null,
-  aoi: null
+  aoi: null,
+  modal: {
+    isOpen: false,
+    title: null,
+    component: null
+  }
 }
 
 export const controlSlice = createSlice({
@@ -23,10 +28,13 @@ export const controlSlice = createSlice({
     setaoi: (state, action) => {
       state.aoi = action.payload.aoi;
     },
+    setmodal: (state, action) => {
+      state.modal = action.payload.modal;
+    },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setbasemap, setbasemapurl, setbasemapparams, setaoi } = controlSlice.actions
+export const { setbasemap, setbasemapurl, setbasemapparams, setaoi, setmodal } = controlSlice.actions
 
 export default controlSlice.reducer

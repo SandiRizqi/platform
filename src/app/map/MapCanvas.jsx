@@ -27,11 +27,11 @@ const geoJSONStyle = {
     weight: 2,
     opacity: 1,
     fillOpacity: 0.3
-  };
+};
 
 
 
-function Timeline({planet, setPlanetLayer, matches}) {
+function Timeline({ planet, setPlanetLayer, matches }) {
     return (
         planet.length > 0 && (<div className={styles.timeline}>
             <GciTimeline marks={planet} setSelected={setPlanetLayer} step={matches ? 1 : 3} />
@@ -42,7 +42,7 @@ function Timeline({planet, setPlanetLayer, matches}) {
 
 
 
-export default function MapCanvas({ Sidebar}) {
+export default function MapCanvas({ children, Sidebar }) {
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.up('md'));
     const basemap = useSelector((state) => state.control.selectedBasemap)
@@ -59,7 +59,7 @@ export default function MapCanvas({ Sidebar}) {
 
     function setPlanetLayer(index) {
         const selected = planet[index];
-        dispatch(setbasemapurl({basemapUrl: selected._links.tiles}))
+        dispatch(setbasemapurl({ basemapUrl: selected._links.tiles }))
     }
 
 
@@ -87,51 +87,49 @@ export default function MapCanvas({ Sidebar}) {
     const AOILayer = useMemo(() => {
         if (AOI) {
             return (
-                <GeoJSON attribution="&copy; Geocircle Indonesia" data={AOI} style={geoJSONStyle} key={AOI.id}/>
+                <GeoJSON attribution="&copy; Geocircle Indonesia" data={AOI} style={geoJSONStyle} key={AOI.id} />
             )
         };
-        return null ;
+        return null;
 
     }, [AOI])
 
 
-    
+
     return (
         <Fragment>
             {Sidebar}
-            
-            {basemap === 'Planet NICFI' && (<Timeline planet={planet} setPlanetLayer={setPlanetLayer} matches={matches}/>)}
-            
-                <MapContainer style={{
-                    width: '100%',
-                    height: '100vh',
-                }}
-                    center={[initMap.lat, initMap.long]}
-                    doubleClickZoom={false}
-                    zoom={initMap.zoom}
-                    zoomControl={false}
-                
-                >
-                    
-                    
-                    <TileLayer
-                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    />
 
-                    {basemapUrl && (<TileLayer
-                                            attribution='basemap'
-                                            url={basemapParams ? `${basemapUrl}${basemapParams}`: basemapUrl}
-                                            tileSize={256}
-                                        />)}
-                    
-                    {AOILayer}
-                    
+            {basemap === 'Planet NICFI' && (<Timeline planet={planet} setPlanetLayer={setPlanetLayer} matches={matches} />)}
+
+            <MapContainer style={{
+                width: '100%',
+                height: '100vh',
+            }}
+                center={[initMap.lat, initMap.long]}
+                doubleClickZoom={false}
+                zoom={initMap.zoom}
+                zoomControl={false}
+
+            >
+                <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+
+                {basemapUrl && (<TileLayer
+                    attribution='basemap'
+                    url={basemapParams ? `${basemapUrl}${basemapParams}` : basemapUrl}
+                    tileSize={256}
+                />)}
+
+                {AOILayer}
+                {children}
+
 
                 <Controls />
+            </MapContainer>
 
-                </MapContainer>
-           
         </Fragment>
     )
 }

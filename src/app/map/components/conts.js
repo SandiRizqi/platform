@@ -7,7 +7,6 @@ import Landsat89 from "./desc/Landsat89";
 import QueryStatsOutlinedIcon from '@mui/icons-material/QueryStatsOutlined';
 import ForestOutlinedIcon from '@mui/icons-material/ForestOutlined';
 import WhatshotOutlinedIcon from '@mui/icons-material/WhatshotOutlined';
-import { IconButton } from "@mui/material";
 
 
 

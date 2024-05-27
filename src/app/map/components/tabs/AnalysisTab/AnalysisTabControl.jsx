@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Tabs, Tab } from '@mui/material';
+import { Grid,Stack, IconButton} from '@mui/material';
 import { ANALYSIS_TABS } from '../../conts';
 import SpectralAnalysis from './handler/SpectralAnalysis';
 
@@ -7,21 +7,18 @@ export default function AnalysisTabControl() {
   return (
       <>
           <Grid container >
-              <Grid item xs={3} >
-                  <Tabs 
-                  orientation="vertical"
-                  value={0}
-                  variant="scrollable"
-                  textColor="inherit"
-                  aria-label="analysis_tabs"
-                  sx={{ borderRight: 1, borderColor: 'divider', paddingRight: '5px' }}
+              <Grid item xs={2} sx={{borderRight: '1px solid grey'}}>
+                  <Stack
+                  sx={{justifyContent : 'center', alignItems: 'center', display: 'flex'}}
                   >
                     {ANALYSIS_TABS.map((obj, idx) => (
-                        <Tab key={idx} icon={obj.icon} />
+                        <IconButton key={idx} >
+                            {obj.icon} 
+                        </IconButton>
                     ))}
-                  </Tabs>
+                  </Stack>
               </Grid>
-              <Grid item xs={9} sx={{padding: '5px'}}>
+              <Grid item xs={10} sx={{padding: '5px'}}>
                   <SpectralAnalysis />
               </Grid>
           </Grid>
