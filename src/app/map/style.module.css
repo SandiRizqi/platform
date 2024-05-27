@@ -66,3 +66,28 @@
     border-radius: 5px;
 
 }
+
+
+.AnalisisButtonContainer {
+    background-color: rgba(117, 164, 127, 1);
+    border-radius: 5px;
+
+}
+
+.AnalisisTabActive {
+    background-color: rgba(117, 164, 127, 1);
+    border-radius: 5px;
+    width: 100%;
+    margin-right: 5px;
+    justify-content: center;
+    display: flex;
+}
+
+
+.AnalisisTab {
+    border-radius: 5px;
+    width: 100%;
+    margin-right: 5px;
+    justify-content: center;
+    display: flex;
+}

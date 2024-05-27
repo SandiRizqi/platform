@@ -8,6 +8,7 @@ import axios from 'axios';
 import { LineChart } from '@mui/x-charts';
 import {CircularProgress } from '@mui/material';
 import { DownloadOutlined, ZoomIn} from '@mui/icons-material';
+import styles from '@/app/map/style.module.css';
 
 
 
@@ -100,14 +101,18 @@ export default function SpectralAnalysis() {
                           margin={{ left: 35, right: 15, top: 10, bottom: 20 }}
                           grid={{ vertical: false, horizontal: false }}
                       />
-                      <Box >
-                          <IconButton size='small'>
-                            <DownloadOutlined />
-                          </IconButton>
-                          <IconButton size='small' onClick={handleDetails}>
-                            <ZoomIn />
-                          </IconButton>
-                      </Box>
+                      <Stack direction={'row'} spacing={1}>
+                          <div className={styles.AnalisisButtonContainer} >
+                              <IconButton size='small'>
+                                  <DownloadOutlined color='primary' />
+                              </IconButton>
+                          </div>
+                          <div className={styles.AnalisisButtonContainer}>
+                              <IconButton size='small' onClick={handleDetails}>
+                                  <ZoomIn color='primary' />
+                              </IconButton>
+                          </div>
+                      </Stack>
                   </Stack>
         )}
     
